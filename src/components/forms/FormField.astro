@@ -1,0 +1,123 @@
+---
+export interface Props {
+  name: string;
+  label: string;
+  type?: 'text' | 'email' | 'number' | 'url' | 'textarea';
+  required?: boolean;
+  placeholder?: string;
+  helpText?: string;
+  min?: string;
+  max?: string;
+  pattern?: string;
+  rows?: string;
+}
+
+const { name, label, type = 'text', required, placeholder, helpText, min, max, pattern, rows } =
+  Astro.props;
+---
+
+<div class="form-field">
+  <label for={name}>
+    {label}
+    {required && <span class="required" aria-hidden="true">*</span>}
+  </label>
+
+  {type === 'textarea' ? (
+    <textarea
+      id={name}
+      name={name}
+      placeholder={placeholder}
+      required={required}
+      rows={rows ?? '4'}
+      aria-describedby={helpText ? `${name}-help` : undefined}
+    ></textarea>
+  ) : (
+    <input
+      id={name}
+      name={name}
+      type={type}
+      placeholder={placeholder}
+      required={required}
+      min={min}
+      max={max}
+      pattern={pattern}
+      autocomplete={name === 'email' ? 'email' : name === 'fullName' ? 'name' : 'off'}
+      aria-describedby={helpText ? `${name}-help` : undefined}
+    />
+  )}
+
+  {helpText && (
+    <p id={`${name}-help`} class="help-text">{helpText}</p>
+  )}
+
+  <p id={`${name}-error`} class="error-text" role="alert" aria-live="polite"></p>
+</div>
+
+<style>
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #374151;
+  }
+
+  .required {
+    color: #dc2626;
+    margin-left: 2px;
+  }
+
+  input,
+  textarea {
+    padding: 0.625rem 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: #fff;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  input:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  }
+
+  input[aria-invalid='true'],
+  textarea[aria-invalid='true'] {
+    border-color: #dc2626;
+  }
+
+  input[aria-invalid='true']:focus,
+  textarea[aria-invalid='true']:focus {
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+  }
+
+  input.error,
+  textarea.error {
+    border-color: #dc2626;
+  }
+
+  .help-text {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #6b7280;
+  }
+
+  .error-text {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #dc2626;
+    display: none;
+  }
+
+  .error-text.visible {
+    display: block;
+  }
+</style>

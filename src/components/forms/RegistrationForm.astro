@@ -1,0 +1,124 @@
+---
+import FormField from './FormField.astro';
+import SubmitButton from './SubmitButton.astro';
+import Toast from './Toast.astro';
+
+interface Props {
+  csrfToken: string;
+  deadline: string;
+}
+
+const { csrfToken, deadline } = Astro.props;
+---
+
+<form id="registration-form" method="POST" action="/api/register" class="registration-form" novalidate>
+  <input type="hidden" name="csrfToken" value={csrfToken} />
+  <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;height:0;width:0;opacity:0" />
+
+  <div class="form-grid">
+    <FormField
+      name="fullName"
+      label="Nombre Completo"
+      required
+      pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+"
+      placeholder="Ej: Juan Pérez"
+      helpText="Solo letras y espacios"
+    />
+
+    <FormField
+      name="email"
+      label="Correo Electrónico"
+      type="email"
+      required
+      placeholder="usuario@udistrital.edu.co"
+      helpText="Debe ser @udistrital.edu.co"
+    />
+
+    <FormField
+      name="availabilityHours"
+      label="Disponibilidad Horaria (hrs/semana)"
+      type="number"
+      required
+      min="1"
+      max="40"
+      placeholder="10"
+      helpText="Entre 1 y 40 horas semanales"
+    />
+
+    <FormField
+      name="currentSemester"
+      label="Semestre Actual"
+      type="number"
+      required
+      min="2"
+      max="14"
+      placeholder="5"
+      helpText="Entre semestre 2 y 14"
+    />
+
+    <FormField
+      name="specialtyArea"
+      label="Área de Especialidad"
+      required
+      placeholder="Ej: Frontend, Backend, DevOps, UX"
+      helpText="¿Cuál es tu área de interés o especialidad?"
+    />
+
+    <FormField
+      name="linkedinUrl"
+      label="Perfil de LinkedIn (opcional)"
+      type="url"
+      placeholder="https://linkedin.com/in/tuusuario"
+    />
+
+    <FormField
+      name="githubUrl"
+      label="Perfil de GitHub (opcional)"
+      type="url"
+      placeholder="https://github.com/tuusuario"
+    />
+
+    <FormField
+      name="discordUsername"
+      label="Usuario de Discord (opcional)"
+      placeholder="usuario#1234"
+    />
+  </div>
+
+  <FormField
+    name="motivation"
+    label="¿Por qué deseas entrar al grupo?"
+    type="textarea"
+    required
+    rows="5"
+    placeholder="Cuéntanos tu motivación, experiencia y qué esperas aportar..."
+    helpText="Mínimo 50 caracteres, máximo 2000"
+  />
+
+  <SubmitButton />
+</form>
+
+<Toast />
+<script src="../../scripts/form-validation.js"></script>
+
+<style>
+  .registration-form {
+    max-width: 48rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .form-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

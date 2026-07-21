@@ -1,0 +1,171 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+type ErrorType =
+  | 'validation'
+  | 'duplicate_email'
+  | 'rate_limit'
+  | 'csrf'
+  | 'spam'
+  | 'form_data'
+  | 'closed'
+  | 'server_error';
+
+interface ErrorConfig {
+  status: number;
+  title: string;
+  message: string;
+  variant: 'warning' | 'error' | 'info';
+}
+
+const errorMap: Record<ErrorType, ErrorConfig> = {
+  validation: {
+    status: 400,
+    title: 'Datos inválidos',
+    message: 'Algunos campos no son válidos. Por favor, verifica tus datos e intenta de nuevo.',
+    variant: 'warning',
+  },
+  duplicate_email: {
+    status: 409,
+    title: 'Correo ya registrado',
+    message: 'Este correo electrónico ya está registrado. Si crees que es un error, contáctanos.',
+    variant: 'warning',
+  },
+  rate_limit: {
+    status: 429,
+    title: 'Demasiados intentos',
+    message: 'Has realizado demasiados intentos. Espera unos minutos e intenta de nuevo.',
+    variant: 'warning',
+  },
+  csrf: {
+    status: 403,
+    title: 'Sesión expirada',
+    message: 'Tu sesión ha expirado. Recarga la página del formulario e intenta de nuevo.',
+    variant: 'error',
+  },
+  spam: {
+    status: 400,
+    title: 'Solicitud rechazada',
+    message: 'Tu solicitud fue rechazada por nuestras medidas de seguridad.',
+    variant: 'error',
+  },
+  form_data: {
+    status: 400,
+    title: 'Error en formulario',
+    message: 'Los datos enviados no son válidos. Recarga la página e intenta de nuevo.',
+    variant: 'error',
+  },
+  closed: {
+    status: 403,
+    title: 'Inscripciones cerradas',
+    message: 'El período de inscripciones ha finalizado. Gracias por tu interés.',
+    variant: 'info',
+  },
+  server_error: {
+    status: 500,
+    title: 'Error inesperado',
+    message: 'Ocurrió un error inesperado. Intenta de nuevo más tarde.',
+    variant: 'error',
+  },
+};
+
+const rawType = Astro.url.searchParams.get('type') ?? '';
+const errorType: ErrorType = Object.hasOwn(errorMap, rawType) ? (rawType as ErrorType) : 'server_error';
+const config = errorMap[errorType];
+const iconId = config.variant === 'error' ? 'error' : config.variant === 'warning' ? 'warning' : 'info';
+---
+
+<Layout title={`${config.title} - DevTeam`}>
+  <main class="error-page">
+    <div class={`error-card error-${config.variant}`}>
+      <svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="56" height="56" aria-hidden="true">
+        {iconId === 'error' && (
+          <circle cx="12" cy="12" r="10" stroke-width="1.5" />
+        )}
+        {iconId === 'warning' && (
+          <path d="M12 9v4m0 4h.01" stroke-width="1.5" stroke-linecap="round" />
+        )}
+        {iconId === 'info' && (
+          <circle cx="12" cy="12" r="10" stroke-width="1.5" />
+        )}
+      </svg>
+      <h1 class="error-title">{config.title}</h1>
+      <p class="error-message">{config.message}</p>
+      <a href="/" class="back-link">Volver al formulario</a>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .error-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .error-card {
+    text-align: center;
+    max-width: 420px;
+    padding: 2.5rem;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  }
+
+  .error-warning {
+    border: 1px solid #fde68a;
+  }
+
+  .error-error {
+    border: 1px solid #fecaca;
+  }
+
+  .error-info {
+    border: 1px solid #bfdbfe;
+  }
+
+  .error-icon {
+    margin-bottom: 1.25rem;
+  }
+
+  .error-warning .error-icon {
+    color: #d97706;
+  }
+
+  .error-error .error-icon {
+    color: #dc2626;
+  }
+
+  .error-info .error-icon {
+    color: #2563eb;
+  }
+
+  .error-title {
+    font-size: 1.35rem;
+    margin: 0 0 0.75rem;
+    color: #111827;
+  }
+
+  .error-message {
+    color: #4b5563;
+    margin: 0 0 1.5rem;
+    line-height: 1.6;
+  }
+
+  .back-link {
+    display: inline-block;
+    padding: 0.625rem 1.25rem;
+    background: #f3f4f6;
+    color: #374151;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: background 0.15s ease;
+  }
+
+  .back-link:hover {
+    background: #e5e7eb;
+  }
+</style>

@@ -1,0 +1,71 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Inscripción Exitosa - DevTeam">
+  <main class="success-page">
+    <div class="success-card">
+      <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="64" height="64">
+        <circle cx="12" cy="12" r="10" stroke-width="2" />
+        <path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <h1>¡Inscripción Enviada!</h1>
+      <p>
+        Hemos recibido tu formulario correctamente. El equipo revisará tu solicitud y te contactarán
+        pronto al correo registrado.
+      </p>
+      <a href="/" class="back-link">Volver al inicio</a>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .success-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .success-card {
+    text-align: center;
+    max-width: 420px;
+    padding: 2.5rem;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  }
+
+  .check-icon {
+    color: #10b981;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    margin: 0 0 0.75rem;
+    color: #111827;
+  }
+
+  p {
+    color: #4b5563;
+    margin: 0 0 1.5rem;
+    line-height: 1.6;
+  }
+
+  .back-link {
+    display: inline-block;
+    padding: 0.625rem 1.25rem;
+    background: #f3f4f6;
+    color: #374151;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: background 0.15s ease;
+  }
+
+  .back-link:hover {
+    background: #e5e7eb;
+  }
+</style>

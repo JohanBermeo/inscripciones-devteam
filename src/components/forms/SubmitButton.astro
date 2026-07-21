@@ -1,0 +1,58 @@
+---
+---
+
+<button type="submit" class="submit-btn" id="submit-btn">
+  <span class="btn-text">Enviar inscripción</span>
+  <span class="btn-spinner" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
+      <circle cx="12" cy="12" r="10" stroke-dasharray="31.4 31.4" stroke-linecap="round" />
+    </svg>
+  </span>
+</button>
+
+<style>
+  .submit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    background: #2563eb;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.15s ease, opacity 0.15s ease;
+  }
+
+  .submit-btn:hover:not(:disabled) {
+    background: #1d4ed8;
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .btn-spinner {
+    display: none;
+    animation: spin 0.75s linear infinite;
+  }
+
+  .submit-btn.loading .btn-text {
+    display: none;
+  }
+
+  .submit-btn.loading .btn-spinner {
+    display: inline-block;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>
