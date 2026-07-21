@@ -1,0 +1,90 @@
+---
+import RegistrationForm from '../components/forms/RegistrationForm.astro';
+import Layout from '../layouts/Layout.astro';
+import { generateCsrfToken } from '../lib/security/csrf';
+
+const locals = Astro.locals as { formOpen: boolean };
+const formOpen = locals.formOpen ?? true;
+
+const csrfToken = await generateCsrfToken();
+
+Astro.cookies.set('csrf_token', csrfToken, {
+  httpOnly: true,
+  secure: import.meta.env.PROD,
+  sameSite: 'strict',
+  maxAge: 3600,
+  path: '/',
+});
+---
+
+<Layout title="Inscripción - DevTeam">
+  <main class="page">
+    <header class="page-header">
+      <h1>Formulario de Inscripción</h1>
+      <p class="subtitle">DevTeam - Universidad Distrital</p>
+      <p class="info-text">
+        Completa todos los campos obligatorios (*) para enviar tu solicitud.
+      </p>
+    </header>
+
+    {formOpen ? (
+      <RegistrationForm csrfToken={csrfToken} deadline="2025-08-08T23:59:59-05:00" />
+    ) : (
+      <section class="closed-message" role="alert">
+        <h2>Inscripciones Cerradas</h2>
+        <p>El período de inscripciones finalizó el <strong>8 de agosto de 2025</strong>.</p>
+        <p>Gracias por tu interés en formar parte del DevTeam.</p>
+      </section>
+    )}
+  </main>
+</Layout>
+
+<style>
+  .page {
+    max-width: 52rem;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+    margin: 0 0 0.25rem;
+    color: #111827;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: #4b5563;
+    margin: 0 0 0.5rem;
+  }
+
+  .info-text {
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin: 0;
+  }
+
+  .closed-message {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 0.75rem;
+    color: #991b1b;
+  }
+
+  .closed-message h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+  }
+
+  .closed-message p {
+    margin: 0.25rem 0;
+    font-size: 1rem;
+  }
+</style>
