@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{Astro.props.title || 'DevTeam - Inscripciones'}</title>
+    <title>DevTeam - Inscripciones</title>
     <slot name="head" />
   </head>
   <body>
@@ -15,7 +15,41 @@
   </body>
 </html>
 
-<style>
+<style is:global>
+  :root {
+    /* Brand Primary: Purple */
+    --color-purple: #7f56ff;
+    --color-purple-hover: #6941c6;
+    --color-purple-light: rgba(127, 86, 255, 0.1);
+    --color-purple-focus: rgba(127, 86, 255, 0.3);
+
+    /* Brand Secondary/Accent: Lime Green */
+    --color-lime: #cdff95;
+    --color-lime-hover: #bcf77e;
+    --color-lime-dark: #27400b; /* Contraste oscuro para texto en fondo lime */
+    --color-lime-light: rgba(205, 255, 149, 0.15);
+    --color-lime-focus: rgba(205, 255, 149, 0.4);
+
+    /* Brand Success (basado en la paleta lime) */
+    --color-success-bg: #f7ffe6;
+    --color-success-border: #bcf77e;
+    --color-success-text: #223c05;
+
+    /* Estados de Error y Alertas */
+    --color-error-bg: #fef2f2;
+    --color-error-border: #fecaca;
+    --color-error-text: #991b1b;
+    --color-error-focus: rgba(220, 38, 38, 0.15);
+
+    /* Neutros Premium */
+    --color-text-main: #111827;
+    --color-text-secondary: #4b5563;
+    --color-text-muted: #6b7280;
+    --color-border: #d1d5db;
+    --color-bg-main: #f9fafb;
+    --color-white: #ffffff;
+  }
+
   *,
   *::before,
   *::after {
@@ -28,17 +62,16 @@
     padding: 0;
     width: 100%;
     min-height: 100%;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
-      Arial, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.5;
-    color: #111827;
-    background: #f9fafb;
+    color: var(--color-text-main);
+    background: var(--color-bg-main);
   }
 
   :focus-visible {
-    outline: 2px solid #2563eb;
+    outline: 2px solid var(--color-purple);
     outline-offset: 2px;
     border-radius: 2px;
   }

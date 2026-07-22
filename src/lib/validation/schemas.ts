@@ -50,4 +50,25 @@ export const registrationSchema = z.object({
   website: z.string().optional(),
 });
 
+export const step1Schema = registrationSchema.pick({
+  fullName: true,
+  email: true,
+  currentSemester: true,
+});
+
+export const step2Schema = registrationSchema.pick({
+  specialtyArea: true,
+  availabilityHours: true,
+});
+
+export const step3Schema = registrationSchema.pick({
+  motivation: true,
+});
+
+export const step4Schema = registrationSchema.pick({
+  linkedinUrl: true,
+  githubUrl: true,
+  discordUsername: true,
+});
+
 export type RegistrationInput = z.infer<typeof registrationSchema>;

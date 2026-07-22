@@ -1,6 +1,5 @@
 ---
 import FormField from './FormField.astro';
-import SubmitButton from './SubmitButton.astro';
 import Toast from './Toast.astro';
 
 interface Props {
@@ -8,117 +7,337 @@ interface Props {
   deadline: string;
 }
 
-const { csrfToken, deadline } = Astro.props;
+const { csrfToken } = Astro.props;
 ---
 
 <form id="registration-form" method="POST" action="/api/register" class="registration-form" novalidate>
   <input type="hidden" name="csrfToken" value={csrfToken} />
-  <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;height:0;width:0;opacity:0" />
-
-  <div class="form-grid">
-    <FormField
-      name="fullName"
-      label="Nombre Completo"
-      required
-      pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+"
-      placeholder="Ej: Juan Pérez"
-      helpText="Solo letras y espacios"
-    />
-
-    <FormField
-      name="email"
-      label="Correo Electrónico"
-      type="email"
-      required
-      placeholder="usuario@udistrital.edu.co"
-      helpText="Debe ser @udistrital.edu.co"
-    />
-
-    <FormField
-      name="availabilityHours"
-      label="Disponibilidad Horaria (hrs/semana)"
-      type="number"
-      required
-      min="1"
-      max="40"
-      placeholder="10"
-      helpText="Entre 1 y 40 horas semanales"
-    />
-
-    <FormField
-      name="currentSemester"
-      label="Semestre Actual"
-      type="number"
-      required
-      min="2"
-      max="14"
-      placeholder="5"
-      helpText="Entre semestre 2 y 14"
-    />
-
-    <FormField
-      name="specialtyArea"
-      label="Área de Especialidad"
-      required
-      placeholder="Ej: Frontend, Backend, DevOps, UX"
-      helpText="¿Cuál es tu área de interés o especialidad?"
-    />
-
-    <FormField
-      name="linkedinUrl"
-      label="Perfil de LinkedIn (opcional)"
-      type="url"
-      placeholder="https://linkedin.com/in/tuusuario"
-    />
-
-    <FormField
-      name="githubUrl"
-      label="Perfil de GitHub (opcional)"
-      type="url"
-      placeholder="https://github.com/tuusuario"
-    />
-
-    <FormField
-      name="discordUsername"
-      label="Usuario de Discord (opcional)"
-      placeholder="usuario#1234"
-    />
-  </div>
-
-  <FormField
-    name="motivation"
-    label="¿Por qué deseas entrar al grupo?"
-    type="textarea"
-    required
-    rows="5"
-    placeholder="Cuéntanos tu motivación, experiencia y qué esperas aportar..."
-    helpText="Mínimo 50 caracteres, máximo 2000"
+  <input
+    type="text"
+    name="website"
+    tabindex="-1"
+    autocomplete="off"
+    aria-hidden="true"
+    style="position:absolute;left:-9999px;top:-9999px;height:0;width:0;opacity:0"
   />
 
-  <SubmitButton />
+  <div id="step-container"></div>
+
+  <template id="step-tpl-1">
+    <div class="form-step" data-step="1">
+      <h2 class="step-title">Paso 1 de 4: Información Personal</h2>
+      <p class="step-description">Cuéntanos quién eres para conocerte mejor.</p>
+
+      <FormField
+        name="fullName"
+        label="Nombre Completo"
+        required
+        pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+"
+        placeholder="Ej: Juan Pérez"
+        helpText="Solo letras y espacios"
+      />
+
+      <FormField
+        name="email"
+        label="Correo Electrónico"
+        type="email"
+        required
+        placeholder="usuario@udistrital.edu.co"
+        helpText="Debe ser @udistrital.edu.co"
+      />
+
+      <FormField
+        name="currentSemester"
+        label="Semestre Actual"
+        type="number"
+        required
+        min="2"
+        max="14"
+        placeholder="5"
+        helpText="Entre semestre 2 y 14"
+      />
+    </div>
+  </template>
+
+  <template id="step-tpl-2">
+    <div class="form-step" data-step="2">
+      <h2 class="step-title">Paso 2 de 4: Área de Especialización</h2>
+      <p class="step-description">Indica tu área de interés y disponibilidad para el grupo.</p>
+
+      <FormField
+        name="specialtyArea"
+        label="Área de Especialidad"
+        required
+        placeholder="Ej: Frontend, Backend, DevOps, UX"
+        helpText="¿Cuál es tu área de interés o especialidad?"
+      />
+
+      <FormField
+        name="availabilityHours"
+        label="Disponibilidad Horaria (hrs/semana)"
+        type="number"
+        required
+        min="1"
+        max="40"
+        placeholder="10"
+        helpText="Entre 1 y 40 horas semanales"
+      />
+    </div>
+  </template>
+
+  <template id="step-tpl-3">
+    <div class="form-step" data-step="3">
+      <h2 class="step-title">Paso 3 de 4: Motivación de Ingreso</h2>
+      <p class="step-description">Queremos saber por qué deseas formar parte del DevTeam.</p>
+
+      <FormField
+        name="motivation"
+        label="¿Por qué deseas entrar al grupo?"
+        type="textarea"
+        required
+        rows="5"
+        placeholder="Cuéntanos tu motivación, experiencia y qué esperas aportar..."
+        helpText="Mínimo 50 caracteres, máximo 2000"
+      />
+    </div>
+  </template>
+
+  <template id="step-tpl-4">
+    <div class="form-step" data-step="4">
+      <h2 class="step-title">Paso 4 de 4: Campos Opcionales</h2>
+      <p class="step-description">
+        Puedes compartir tus redes profesionales si lo deseas. Todos estos campos son opcionales.
+      </p>
+
+      <FormField
+        name="linkedinUrl"
+        label="Perfil de LinkedIn (opcional)"
+        type="url"
+        placeholder="https://linkedin.com/in/tuusuario"
+      />
+
+      <FormField
+        name="githubUrl"
+        label="Perfil de GitHub (opcional)"
+        type="url"
+        placeholder="https://github.com/tuusuario"
+      />
+
+      <FormField
+        name="discordUsername"
+        label="Usuario de Discord (opcional)"
+        placeholder="usuario#1234"
+      />
+    </div>
+  </template>
+
+  <div class="form-navigation">
+    
+    <button type="button" id="prev-btn" class="btn btn-secondary">
+      Anterior
+    </button>
+
+    <button type="button" id="next-btn" class="btn btn-primary">
+      Siguiente
+    </button>
+
+    <button type="submit" id="submit-btn" class="btn btn-submit" hidden>
+      <span class="btn-text">Enviar solicitud</span>
+    </button>
+  </div>
 </form>
 
 <Toast />
-<script src="../../scripts/form-validation.js"></script>
+<script src="../../scripts/form-wizard.js"></script>
 
 <style>
+  [hidden] {
+    display: none !important;
+  }
+
   .registration-form {
-    max-width: 48rem;
+    max-width: 36rem;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1.5rem;
   }
 
-  .form-grid {
-    display: grid;
-    grid-template-columns: 1fr;
+  .form-step {
+    display: flex;
+    flex-direction: column;
     gap: 1.25rem;
+    animation: fadeIn 0.25s ease;
   }
 
-  @media (min-width: 640px) {
-    .form-grid {
-      grid-template-columns: 1fr 1fr;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .step-title {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--color-text-main);
+  }
+
+  .step-description {
+    margin: -0.75rem 0 0;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .form-navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.7rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+    font-family: inherit;
+    line-height: 1.4;
+  }
+
+  .btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .btn-primary {
+    color: var(--color-white);
+    background: var(--color-purple);
+    margin-left: auto;
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background: var(--color-purple-hover);
+  }
+
+  .btn-primary:focus-visible {
+    box-shadow: 0 0 0 3px var(--color-purple-focus);
+  }
+
+  .btn-secondary {
+    color: var(--color-text-secondary);
+    background: #f3f4f6;
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    background: #e5e7eb;
+  }
+
+  .btn-secondary:focus-visible {
+    box-shadow: 0 0 0 3px rgba(55, 65, 81, 0.15);
+  }
+
+  .btn-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-lime-dark);
+    background: var(--color-lime);
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+    font-family: inherit;
+    margin-left: auto;
+    letter-spacing: 0.01em;
+  }
+
+  .btn-submit:hover:not(:disabled) {
+    background: var(--color-lime-hover);
+    box-shadow: 0 0 0 3px var(--color-lime-focus);
+  }
+
+  .btn-submit:focus-visible {
+    box-shadow: 0 0 0 3px var(--color-lime-focus);
+  }
+
+  .btn-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .btn-spinner {
+    display: none;
+    animation: spin 0.75s linear infinite;
+  }
+
+  .btn-submit.loading .btn-text {
+    display: none;
+  }
+
+  .btn-submit.loading .btn-spinner {
+    display: inline-block;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* ── Tablet (≤ 768px) ─────────────────────────────── */
+  @media (max-width: 768px) {
+    .registration-form {
+      max-width: 100%;
+    }
+
+    .step-title {
+      font-size: 1.1rem;
+    }
+  }
+
+  /* ── Mobile (≤ 480px) ─────────────────────────────── */
+  @media (max-width: 480px) {
+    .registration-form {
+      gap: 1.25rem;
+    }
+
+    .step-title {
+      font-size: 1rem;
+    }
+
+    .step-description {
+      font-size: 0.8rem;
+    }
+
+    .form-navigation {
+      flex-direction: column-reverse;
+      gap: 0.5rem;
+    }
+
+    .btn {
+      width: 100%;
+      justify-content: center;
+      padding: 0.75rem 1rem;
+    }
+
+    .btn-primary,
+    .btn-submit {
+      margin-left: 0;
     }
   }
 </style>

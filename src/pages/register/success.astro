@@ -5,10 +5,11 @@ import Layout from '../../layouts/Layout.astro';
 <Layout title="Inscripción Exitosa - DevTeam">
   <main class="success-page">
     <div class="success-card">
-      <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="64" height="64">
-        <circle cx="12" cy="12" r="10" stroke-width="2" />
-        <path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
+      <div class="check-wrapper">
+        <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="40" height="40">
+          <path d="M5 13l4 4L19 7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
       <h1>¡Inscripción Enviada!</h1>
       <p>
         Hemos recibido tu formulario correctamente. El equipo revisará tu solicitud y te contactarán
@@ -32,40 +33,75 @@ import Layout from '../../layouts/Layout.astro';
     text-align: center;
     max-width: 420px;
     padding: 2.5rem;
-    background: #fff;
+    background: var(--color-white);
     border-radius: 1rem;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 0 0 1px var(--color-success-border);
+  }
+
+  .check-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--color-lime);
+    box-shadow: 0 0 0 8px var(--color-lime-light);
+    margin-bottom: 1.5rem;
   }
 
   .check-icon {
-    color: #10b981;
-    margin-bottom: 1.5rem;
+    color: var(--color-purple);
+    flex-shrink: 0;
   }
 
   h1 {
     font-size: 1.5rem;
     margin: 0 0 0.75rem;
-    color: #111827;
+    color: var(--color-text-main);
   }
 
   p {
-    color: #4b5563;
+    color: var(--color-text-secondary);
     margin: 0 0 1.5rem;
     line-height: 1.6;
   }
 
   .back-link {
     display: inline-block;
-    padding: 0.625rem 1.25rem;
-    background: #f3f4f6;
-    color: #374151;
+    padding: 0.65rem 1.5rem;
+    background: var(--color-purple);
+    color: var(--color-white);
     text-decoration: none;
     border-radius: 0.5rem;
-    font-weight: 500;
-    transition: background 0.15s ease;
+    font-weight: 600;
+    transition: background 0.15s ease, box-shadow 0.15s ease;
   }
 
   .back-link:hover {
-    background: #e5e7eb;
+    background: var(--color-purple-hover);
+    box-shadow: 0 0 0 3px var(--color-purple-focus);
+  }
+
+  /* ── Mobile (≤ 480px) ─────────────────────────────── */
+  @media (max-width: 480px) {
+    .success-page {
+      padding: 1rem;
+      align-items: flex-start;
+      padding-top: 3rem;
+    }
+
+    .success-card {
+      max-width: 100%;
+      padding: 1.75rem 1.25rem;
+    }
+
+    h1 {
+      font-size: 1.25rem;
+    }
+
+    p {
+      font-size: 0.9rem;
+    }
   }
 </style>
