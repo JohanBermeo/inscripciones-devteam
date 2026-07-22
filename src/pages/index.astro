@@ -18,55 +18,97 @@ Astro.cookies.set('csrf_token', csrfToken, {
 ---
 
 <Layout title="Inscripción - DevTeam">
-  <main class="page">
+  <main>
     <header class="page-header">
-      <h1>Formulario de Inscripción</h1>
-      <p class="subtitle">DevTeam - Universidad Distrital</p>
-      <p class="info-text">
-        Completa todos los campos obligatorios (*) para enviar tu solicitud.
-      </p>
+      <div class="header">
+        <h1>Formulario de Inscripción</h1>
+        <p class="subtitle">DevTeam - Universidad Distrital</p>
+        <p class="info-text">
+          Completa todos los campos obligatorios (*) para enviar tu solicitud.
+        </p>
+      </div>
+
+      <div
+        id="header-progress"
+        class="header-progress"
+        role="progressbar"
+        aria-valuenow="1"
+        aria-valuemin="0"
+        aria-valuemax="4"
+        aria-label="Progreso del formulario de inscripción"
+      >
+        <div id="header-progress-fill" class="header-progress-fill" style="width: 0%"></div>
+      </div>
+      <div id="step-announce" class="sr-only" aria-live="polite"></div>
     </header>
 
-    {formOpen ? (
-      <RegistrationForm csrfToken={csrfToken} deadline="2025-08-08T23:59:59-05:00" />
-    ) : (
-      <section class="closed-message" role="alert">
-        <h2>Inscripciones Cerradas</h2>
-        <p>El período de inscripciones finalizó el <strong>8 de agosto de 2025</strong>.</p>
-        <p>Gracias por tu interés en formar parte del DevTeam.</p>
-      </section>
-    )}
+    <div class="page-inner">
+      {formOpen ? (
+        <RegistrationForm csrfToken={csrfToken} deadline="2025-08-08T23:59:59-05:00" />
+      ) : (
+        <section class="closed-message" role="alert">
+          <h2>Inscripciones Cerradas</h2>
+          <p>El período de inscripciones finalizó el <strong>8 de agosto de 2025</strong>.</p>
+          <p>Gracias por tu interés en formar parte del DevTeam.</p>
+        </section>
+      )}
+    </div>
   </main>
 </Layout>
 
 <style>
-  .page {
-    max-width: 52rem;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-  }
-
-  .page-header {
-    text-align: center;
-    margin-bottom: 2rem;
+  .header {
+    text-align: left;
+    padding: 1.5rem 3rem 1.5rem;
   }
 
   h1 {
-    font-size: 1.75rem;
+    font-size: 36px;
     margin: 0 0 0.25rem;
     color: #111827;
   }
 
   .subtitle {
-    font-size: 1rem;
+    font-size: 20px;
     color: #4b5563;
     margin: 0 0 0.5rem;
   }
 
   .info-text {
-    font-size: 0.85rem;
+    font-size: 16px;
     color: #6b7280;
     margin: 0;
+  }
+
+  .header-progress {
+    height: 3px;
+    background: #e5e7eb;
+    margin-top: 1.5rem;
+    overflow: hidden;
+  }
+
+  .header-progress-fill {
+    height: 100%;
+    background: #7f56ff;
+    width: 0%;
+    transition: width 0.35s ease;
+  }
+
+  .page-inner {
+    margin: 0 auto;
+    padding: 5rem;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
   }
 
   .closed-message {
