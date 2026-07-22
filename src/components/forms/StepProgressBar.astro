@@ -43,14 +43,14 @@ const steps = [
   .progress-bar {
     position: relative;
     height: 8px;
-    background: #e5e7eb;
+    background: var(--color-border);
     border-radius: 4px;
     overflow: visible;
   }
 
   .progress-fill {
     height: 100%;
-    background: #7f56ff;
+    background: var(--color-purple);
     border-radius: 4px;
     transition: width 0.35s ease;
     width: 0%;
@@ -72,31 +72,31 @@ const steps = [
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    background: #e5e7eb;
-    border: 3px solid #fff;
+    background: var(--color-border);
+    border: 3px solid var(--color-white);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 0.8rem;
     font-weight: 700;
-    color: #9ca3af;
+    color: var(--color-text-muted);
     transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     pointer-events: auto;
   }
 
   .progress-dot.active {
-    background: #7f56ff;
-    color: #fff;
-    border-color: #7f56ff;
-    box-shadow: 0 2px 6px rgba(127, 86, 255, 0.3);
+    background: var(--color-purple);
+    color: var(--color-white);
+    border-color: var(--color-purple);
+    box-shadow: 0 2px 6px var(--color-purple-focus);
   }
 
   .progress-dot.current {
-    box-shadow: 0 0 0 4px rgba(127, 86, 255, 0.2), 0 2px 6px rgba(127, 86, 255, 0.3);
-    background: #7f56ff;
-    color: #fff;
-    border-color: #7f56ff;
+    box-shadow: 0 0 0 4px var(--color-purple-light), 0 2px 6px var(--color-purple-focus);
+    background: var(--color-purple);
+    color: var(--color-white);
+    border-color: var(--color-purple);
   }
 
   .progress-labels {
@@ -107,7 +107,7 @@ const steps = [
 
   .progress-label {
     font-size: 0.75rem;
-    color: #9ca3af;
+    color: var(--color-text-muted);
     text-align: center;
     transition: color 0.3s ease;
     flex: 1;
@@ -123,5 +123,35 @@ const steps = [
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border-width: 0;
+  }
+
+  /* ── Tablet (≤ 768px) ─────────────────────────────── */
+  @media (max-width: 768px) {
+    .progress-container {
+      padding: 0 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .progress-label {
+      font-size: 0.65rem;
+    }
+  }
+
+  /* ── Mobile (≤ 480px) ─────────────────────────────── */
+  @media (max-width: 480px) {
+    .progress-dot {
+      width: 22px;
+      height: 22px;
+      font-size: 0.7rem;
+      border-width: 2px;
+    }
+
+    .progress-labels {
+      display: none;
+    }
+
+    .progress-container {
+      margin-bottom: 1rem;
+    }
   }
 </style>

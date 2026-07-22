@@ -26,6 +26,7 @@ Astro.cookies.set('csrf_token', csrfToken, {
         <p class="info-text">
           Completa todos los campos obligatorios (*) para enviar tu solicitud.
         </p>
+        <span class="status-badge">Inscripciones Abiertas<span class="status-badge-dot"></span></span>
       </div>
 
       <div
@@ -59,37 +60,65 @@ Astro.cookies.set('csrf_token', csrfToken, {
 <style>
   .header {
     text-align: left;
-    padding: 1.5rem 3rem 1.5rem;
+    padding: 1.5rem 3rem 1rem;
   }
 
   h1 {
     font-size: 36px;
     margin: 0 0 0.25rem;
-    color: #111827;
+    color: var(--color-text-main);
+  }
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: var(--color-lime);
+    color: var(--color-lime-dark);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    margin-top: 1rem;
+    text-transform: uppercase;
+  }
+
+  .status-badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--color-lime-dark);
+    animation: pulse-dot 1.8s ease infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.75); }
   }
 
   .subtitle {
     font-size: 20px;
-    color: #4b5563;
+    color: var(--color-text-secondary);
     margin: 0 0 0.5rem;
   }
 
   .info-text {
     font-size: 16px;
-    color: #6b7280;
+    color: var(--color-text-muted);
     margin: 0;
   }
 
   .header-progress {
     height: 3px;
-    background: #e5e7eb;
+    background: var(--color-border);
     margin-top: 1.5rem;
     overflow: hidden;
   }
 
   .header-progress-fill {
     height: 100%;
-    background: #7f56ff;
+    background: var(--color-purple);
     width: 0%;
     transition: width 0.35s ease;
   }
@@ -114,10 +143,10 @@ Astro.cookies.set('csrf_token', csrfToken, {
   .closed-message {
     text-align: center;
     padding: 3rem 1rem;
-    background: #fef2f2;
-    border: 1px solid #fecaca;
+    background: var(--color-error-bg);
+    border: 1px solid var(--color-error-border);
     border-radius: 0.75rem;
-    color: #991b1b;
+    color: var(--color-error-text);
   }
 
   .closed-message h2 {
@@ -128,5 +157,55 @@ Astro.cookies.set('csrf_token', csrfToken, {
   .closed-message p {
     margin: 0.25rem 0;
     font-size: 1rem;
+  }
+
+  /* ── Tablet (≤ 768px) ─────────────────────────────── */
+  @media (max-width: 768px) {
+    .header {
+      padding: 1.25rem 1.5rem 0.75rem;
+    }
+
+    h1 {
+      font-size: 28px;
+    }
+
+    .subtitle {
+      font-size: 17px;
+    }
+
+    .info-text {
+      font-size: 14px;
+    }
+
+    .page-inner {
+      padding: 2.5rem 1.5rem;
+    }
+  }
+
+  /* ── Mobile (≤ 480px) ─────────────────────────────── */
+  @media (max-width: 480px) {
+    .header {
+      padding: 1rem 1rem 0.75rem;
+    }
+
+    h1 {
+      font-size: 22px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+    }
+
+    .info-text {
+      font-size: 13px;
+    }
+
+    .page-inner {
+      padding: 1.5rem 1rem;
+    }
+
+    .closed-message {
+      padding: 2rem 0.75rem;
+    }
   }
 </style>

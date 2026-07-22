@@ -184,13 +184,13 @@ const { csrfToken } = Astro.props;
   .step-title {
     margin: 0;
     font-size: 1.25rem;
-    color: #111827;
+    color: var(--color-text-main);
   }
 
   .step-description {
     margin: -0.75rem 0 0;
     font-size: 0.875rem;
-    color: #6b7280;
+    color: var(--color-text-muted);
   }
 
   .form-navigation {
@@ -221,21 +221,21 @@ const { csrfToken } = Astro.props;
   }
 
   .btn-primary {
-    color: #fff;
-    background: #7f56ff;
+    color: var(--color-white);
+    background: var(--color-purple);
     margin-left: auto;
   }
 
   .btn-primary:hover:not(:disabled) {
-    background: #6941c6;
+    background: var(--color-purple-hover);
   }
 
   .btn-primary:focus-visible {
-    box-shadow: 0 0 0 3px rgba(127, 86, 255, 0.3);
+    box-shadow: 0 0 0 3px var(--color-purple-focus);
   }
 
   .btn-secondary {
-    color: #374151;
+    color: var(--color-text-secondary);
     background: #f3f4f6;
   }
 
@@ -254,23 +254,25 @@ const { csrfToken } = Astro.props;
     gap: 0.5rem;
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
-    font-weight: 600;
-    color: #fff;
-    background: #059669;
+    font-weight: 700;
+    color: var(--color-lime-dark);
+    background: var(--color-lime);
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
-    transition: background 0.15s ease, opacity 0.15s ease;
+    transition: background 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
     font-family: inherit;
     margin-left: auto;
+    letter-spacing: 0.01em;
   }
 
   .btn-submit:hover:not(:disabled) {
-    background: #047857;
+    background: var(--color-lime-hover);
+    box-shadow: 0 0 0 3px var(--color-lime-focus);
   }
 
   .btn-submit:focus-visible {
-    box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.3);
+    box-shadow: 0 0 0 3px var(--color-lime-focus);
   }
 
   .btn-submit:disabled {
@@ -297,7 +299,45 @@ const { csrfToken } = Astro.props;
     }
   }
 
-  svg {
-    flex-shrink: 0;
+  /* ── Tablet (≤ 768px) ─────────────────────────────── */
+  @media (max-width: 768px) {
+    .registration-form {
+      max-width: 100%;
+    }
+
+    .step-title {
+      font-size: 1.1rem;
+    }
+  }
+
+  /* ── Mobile (≤ 480px) ─────────────────────────────── */
+  @media (max-width: 480px) {
+    .registration-form {
+      gap: 1.25rem;
+    }
+
+    .step-title {
+      font-size: 1rem;
+    }
+
+    .step-description {
+      font-size: 0.8rem;
+    }
+
+    .form-navigation {
+      flex-direction: column-reverse;
+      gap: 0.5rem;
+    }
+
+    .btn {
+      width: 100%;
+      justify-content: center;
+      padding: 0.75rem 1rem;
+    }
+
+    .btn-primary,
+    .btn-submit {
+      margin-left: 0;
+    }
   }
 </style>

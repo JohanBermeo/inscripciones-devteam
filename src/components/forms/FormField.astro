@@ -63,57 +63,58 @@ const { name, label, type = 'text', required, placeholder, helpText, min, max, p
   label {
     font-size: 0.9rem;
     font-weight: 500;
-    color: #374151;
+    color: var(--color-text-secondary);
   }
 
   .required {
-    color: #dc2626;
+    color: var(--color-error);
     margin-left: 2px;
   }
 
   input,
   textarea {
     padding: 0.625rem 0.75rem;
-    border: 1px solid #d1d5db;
+    border: 1px solid var(--color-border);
     border-radius: 0.5rem;
     font-size: 0.95rem;
     font-family: inherit;
-    background: #fff;
+    background: var(--color-white);
+    color: var(--color-text-main);
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
 
   input:focus,
   textarea:focus {
     outline: none;
-    border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    border-color: var(--color-purple);
+    box-shadow: 0 0 0 3px var(--color-purple-focus);
   }
 
   input[aria-invalid='true'],
   textarea[aria-invalid='true'] {
-    border-color: #dc2626;
+    border-color: var(--color-error);
   }
 
   input[aria-invalid='true']:focus,
   textarea[aria-invalid='true']:focus {
-    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+    box-shadow: 0 0 0 3px var(--color-error-focus);
   }
 
   input.error,
   textarea.error {
-    border-color: #dc2626;
+    border-color: var(--color-error);
   }
 
   .help-text {
     margin: 0;
     font-size: 0.8rem;
-    color: #6b7280;
+    color: var(--color-text-muted);
   }
 
   .error-text {
     margin: 0;
     font-size: 0.8rem;
-    color: #dc2626;
+    color: var(--color-error-text);
     display: none;
   }
 

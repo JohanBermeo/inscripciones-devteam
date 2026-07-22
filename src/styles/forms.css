@@ -1,19 +1,47 @@
 /* Form Styles */
 :root {
-  --color-primary: #2563eb;
-  --color-primary-hover: #1d4ed8;
+  /* Brand Primary: Purple */
+  --color-purple: #7f56ff;
+  --color-purple-hover: #6941c6;
+  --color-purple-light: rgba(127, 86, 255, 0.1);
+  --color-purple-focus: rgba(127, 86, 255, 0.3);
+
+  /* Brand Secondary/Accent: Lime Green */
+  --color-lime: #cdff95;
+  --color-lime-hover: #bcf77e;
+  --color-lime-dark: #27400b;
+  --color-lime-light: rgba(205, 255, 149, 0.15);
+  --color-lime-focus: rgba(205, 255, 149, 0.4);
+
+  /* Brand Primary Aliases */
+  --color-primary: var(--color-purple);
+  --color-primary-hover: var(--color-purple-hover);
+
+  /* Success states */
+  --color-success: var(--color-lime);
+  --color-success-bg: #f7ffe6;
+  --color-success-border: #bcf77e;
+  --color-success-text: #223c05;
+
+  /* Errors & Alerts */
   --color-error: #dc2626;
-  --color-success: #059669;
+  --color-error-bg: #fef2f2;
+  --color-error-border: #fecaca;
+  --color-error-text: #991b1b;
+  --color-error-focus: rgba(220, 38, 38, 0.15);
+
+  /* Neutros Premium */
   --color-text: #111827;
   --color-text-secondary: #4b5563;
   --color-text-muted: #6b7280;
   --color-border: #d1d5db;
   --color-bg: #f9fafb;
   --color-white: #fff;
+
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
