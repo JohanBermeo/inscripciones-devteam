@@ -18,53 +18,79 @@ Astro.cookies.set('csrf_token', csrfToken, {
 ---
 
 <Layout title="Inscripción - DevTeam">
-  <main>
-    <header class="page-header">
+  <div class="container">
+    <div class="page-header">
       <div class="header">
-        <h1>Formulario de Inscripción</h1>
-        <p class="subtitle">DevTeam - Universidad Distrital</p>
-        <p class="info-text">
-          Completa todos los campos obligatorios (*) para enviar tu solicitud.
-        </p>
-        <span class="status-badge">Inscripciones Abiertas<span class="status-badge-dot"></span></span>
+        <div class="header-title">
+          <h1>Formulario de Inscripción</h1>
+          <span class="status-badge">Inscripciones Abiertas<span class="status-badge-dot"></span></span>
+        </div>
+        <p class="subtitle">DevTeam - Proyección Social</p>
+        <div
+          id="header-progress"
+          class="header-progress"
+          role="progressbar"
+          aria-valuenow="1"
+          aria-valuemin="0"
+          aria-valuemax="4"
+          aria-label="Progreso del formulario de inscripción"
+        >
+          <div id="header-progress-fill" class="header-progress-fill" style="width: 0%"></div>
+        </div>
       </div>
-
-      <div
-        id="header-progress"
-        class="header-progress"
-        role="progressbar"
-        aria-valuenow="1"
-        aria-valuemin="0"
-        aria-valuemax="4"
-        aria-label="Progreso del formulario de inscripción"
-      >
-        <div id="header-progress-fill" class="header-progress-fill" style="width: 0%"></div>
-      </div>
-      <div id="step-announce" class="sr-only" aria-live="polite"></div>
-    </header>
-
-    <div class="page-inner">
-      {formOpen ? (
-        <RegistrationForm csrfToken={csrfToken} deadline="2025-08-08T23:59:59-05:00" />
-      ) : (
-        <section class="closed-message" role="alert">
-          <h2>Inscripciones Cerradas</h2>
-          <p>El período de inscripciones finalizó el <strong>8 de agosto de 2025</strong>.</p>
-          <p>Gracias por tu interés en formar parte del DevTeam.</p>
-        </section>
-      )}
     </div>
-  </main>
+
+    <div class="page-container">
+      <div class="page-inner">
+        {formOpen ? (
+          <RegistrationForm csrfToken={csrfToken} deadline="2025-08-08T23:59:59-05:00" />
+        ) : (
+          <section class="closed-message" role="alert">
+            <h2>Inscripciones Cerradas</h2>
+            <p>El período de inscripciones finalizó el <strong>8 de agosto de 2025</strong>.</p>
+            <p>Gracias por tu interés en formar parte del DevTeam.</p>
+          </section>
+        )}
+      </div>
+    </div>
+  </div>
 </Layout>
 
 <style>
+  .container {
+    height: 100vh;
+    background: 
+      radial-gradient(125% 125% at 50% 10%, #ffffff 40%, #63e 100%);
+  }
+
+  .page-container {
+    position: relative;
+    top: 100px;
+  }
+
   .header {
     text-align: left;
-    padding: 1.5rem 3rem 1rem;
+    padding: 2rem;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    backdrop-filter: blur(5.7px);
+    -webkit-backdrop-filter: blur(5.7px);
+  }
+
+  .header-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
   }
 
   h1 {
-    font-size: 36px;
+    font-size: 24px;
+    font-weight: 800;
     margin: 0 0 0.25rem;
     color: var(--color-text-main);
   }
@@ -76,11 +102,9 @@ Astro.cookies.set('csrf_token', csrfToken, {
     background: var(--color-lime);
     color: var(--color-lime-dark);
     font-size: 0.7rem;
-    font-weight: 700;
+    font-family: 'Jersey 10 Charted', sans-serif;
     padding: 0.15rem 0.5rem;
     border-radius: 999px;
-    margin-top: 1rem;
-    text-transform: uppercase;
   }
 
   .status-badge-dot {
@@ -98,21 +122,17 @@ Astro.cookies.set('csrf_token', csrfToken, {
   }
 
   .subtitle {
-    font-size: 20px;
-    color: var(--color-text-secondary);
-    margin: 0 0 0.5rem;
-  }
-
-  .info-text {
     font-size: 16px;
-    color: var(--color-text-muted);
-    margin: 0;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    margin: 0 0 0.5rem;
+    padding-bottom: 2rem;
   }
 
   .header-progress {
-    height: 3px;
-    background: var(--color-border);
-    margin-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+    height: 5px;
+    background: transparent;
     overflow: hidden;
   }
 
