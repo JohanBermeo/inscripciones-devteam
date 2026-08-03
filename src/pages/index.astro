@@ -184,16 +184,38 @@ Astro.cookies.set('csrf_token', csrfToken, {
     .page-inner {
       padding: 2.5rem 1.5rem;
     }
+
+    .page-container {
+      position: static;
+    }
+
+    .header {
+      top: 0px;
+      position: sticky; 
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .page-header {
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
   }
 
   /* ── Mobile (≤ 480px) ─────────────────────────────── */
   @media (max-width: 480px) {
     .header {
-      padding: 1rem 1rem 0.75rem;
+      padding: 16px 20px;
     }
 
     h1 {
-      font-size: 22px;
+      font-size: 18px;
     }
 
     .subtitle {
@@ -205,11 +227,16 @@ Astro.cookies.set('csrf_token', csrfToken, {
     }
 
     .page-inner {
-      padding: 1.5rem 1rem;
+      padding: 24px 24px;
     }
 
     .closed-message {
       padding: 2rem 0.75rem;
+    }
+
+    .header-logo {
+      height: 68px;
+      width: 68px;
     }
   }
 </style>
