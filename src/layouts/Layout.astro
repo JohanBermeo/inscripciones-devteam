@@ -1,17 +1,63 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: string;
+}
+
+const {
+  title = 'DevTeam - Inscripciones',
+  description = 'Formulario de inscripción para unirte a DevTeam y formar parte de la comunidad de desarrollo.',
+  image = '/icon.png',
+  type = 'website',
+} = Astro.props;
+
+const siteUrl = Astro.site ?? new URL(Astro.request.url);
+const pageUrl = new URL(Astro.url.pathname, siteUrl);
+const ogImage = new URL(image, siteUrl);
+const twitterCard = ogImage ? 'summary_large_image' : 'summary';
+
+import Analytics from "@vercel/analytics/astro";
+---
+
 <!doctype html>
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jersey+10+Charted&display=swap" rel="stylesheet">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#7f56ff" />
+    <meta name="author" content="DevTeam" />
+
+    <link rel="canonical" href={pageUrl} />
+
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/icon.png" />
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; filter-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>DevTeam - Inscripciones</title>
+
+    <meta property="og:type" content={type} />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content="DevTeam" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={description} />
+
+    <meta name="twitter:card" content={twitterCard} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={description} />
     <slot name="head" />
+
+    <Analytics />
   </head>
   <body>
     <slot />
@@ -19,6 +65,54 @@
 </html>
 
 <style is:global>
+  @font-face {
+    font-family: "Open Sauce Two";
+    src: url("../assets/fonts/sans/OpenSauceSans-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Open Sauce Two";
+    src: url("../assets/fonts/sans/OpenSauceSans-Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Open Sauce Two";
+    src: url("../assets/fonts/sans/OpenSauceSans-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Open Sauce Two";
+    src: url("../assets/fonts/sans/OpenSauceSans-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Open Sauce Two";
+    src: url("../assets/fonts/sans/OpenSauceSans-ExtraBold.ttf") format("truetype");
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Open Sauce Two";
+    src: url("../assets/fonts/sans/OpenSauceSans-Black.ttf") format("truetype");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
   :root {
     /* Brand Primary: Purple */
     --color-purple: #7f56ff;
@@ -65,13 +159,24 @@
     padding: 0;
     width: 100%;
     min-height: 100%;
-    font-family: "OpenSauce Two", sans-serif;
+    font-family: "Open Sauce Two", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.5;
     letter-spacing: -0.02rem;
     color: var(--color-text-main);
     background: var(--color-bg-main);
+    height: 100vh;
+    background-color: #ffffff;
+    background-image: 
+      linear-gradient(to right, #d9d9d936 1px, transparent 1px),
+      linear-gradient(to bottom, #d9d9d936 1px, transparent 1px);
+    background-size: 6rem 4rem;    
+    /* background-image: 
+      linear-gradient(to right, #8080800a 1px, transparent 1px),
+      linear-gradient(to bottom, #8080800a 1px, transparent 1px);
+    background-size: 14px 24px; */
+    letter-spacing: -0.02rem !important;
   }
 
   :focus-visible {
